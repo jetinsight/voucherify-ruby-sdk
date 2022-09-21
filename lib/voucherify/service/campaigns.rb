@@ -34,6 +34,15 @@ module Voucherify
       def import_vouchers(campaign_name, vouchers)
         @client.post("/campaigns/#{ERB::Util.url_encode(campaign_name)}/import", vouchers.to_json)
       end
+
+      def create_qualifications_request(customer_id, order_params = {})
+        params = {
+          customer: {
+            id: customer_id
+          }
+        }.merge(order_params)
+        @client.post('/campaigns/qualification', params.to_json)
+      end
     end
   end
 end
