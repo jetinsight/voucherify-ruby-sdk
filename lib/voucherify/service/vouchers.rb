@@ -49,6 +49,15 @@ module Voucherify
       def add_balance(code, balance)
         @client.post("/vouchers/#{ERB::Util.url_encode(code)}/balance", balance.to_json)
       end
+
+      def push_qualifications_request(customer_id, order_params = {})
+        params = {
+          customer: {
+            id: customer_id
+          }
+        }.merge(order_params)
+        @client.post('/vouchers/qualification', params.to_json)
+      end
     end
   end
 end
